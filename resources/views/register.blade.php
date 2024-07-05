@@ -2,41 +2,7 @@
 
 @section('title', 'Register')
 @section('content')
-<!--<div class="container d-flex align-items-center justify-content-center p-5  ">
-    <div class="row justify-content-center shadow rounded-4 box-area p-3 border">
-        <div class="text-center">
-            <div class="col-md-12">
-                <h1>Register</h1>
-                @foreach($errors as $error)
-                <div class="alert alert-danger" role="alert">
-                    {{$error}}
-                </div>
-                @endforeach
-                <form action="/register" method="post" class="form-control" enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-3">
-                        <input type="text" name="first_name" required placeholder="First Name">
-                    </div>
-                    <div class="mb-3">
-                        <input type="text" name="last_name" required placeholder="Last Name">
-                    </div>
-                    <div class="mb-3">
-                        <input type="email" name="email" required placeholder="Email">
-                    </div>
-                    <div class="mb-3">
-                        <input type="password" name="password" required placeholder="password">
-                    </div>
-                    <div class="mb-3 ">
-                        <input type="file" name="image" required placeholder="Add Picture">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Register</button>
-                    <button type="reset" class="btn btn-warning"> clear</button>
-                    <div><a href="/login">Login</a></div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>-->
+
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="row rounded-5 bg-white border flex-column shadow p-3">
