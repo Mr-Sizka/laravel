@@ -33,7 +33,6 @@
 <!--</div>-->
 
 <div class="container p-5 min-vh-100 d-flex align-items-center justify-content-center" >
-<!--    <div class="row justify-content-center">-->
         <div class="col-md-6">
             <div class="card shadow-lg rounded-5 " style="background:lavender">
                 <div class="card-header text-center"><h1><strong>Profile</strong></h1></div>
@@ -48,7 +47,6 @@
                     <a type="button" href="/tasks" class="btn btn-primary">Back</a>
                 </div>
             </div>
-<!--        </div>-->
     </div>
 </div>
 
