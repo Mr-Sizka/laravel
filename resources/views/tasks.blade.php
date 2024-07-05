@@ -13,11 +13,11 @@
                 <div class="alert alert-danger" role="alert">
                     {{$error}}
                 </div>
-
                 @endforeach
                 <form method="post" action="/save">
                     @csrf
                     <input type="text" class="form-control" name="task" placeholder=" Enter your task ">
+                    <input type="hidden" class="form-control" name="user_id" hidden value="{{$user->id}}">
                     <br/>
                     <input type="submit" class="btn btn-primary" value="Save">
                     <input type="reset" class="btn btn-warning" value="Clear" >
@@ -39,7 +39,7 @@
                             <a class="btn btn-danger" href="/delete/{{$task->id}}" >Delete</a>
                             <a class="btn btn-warning" href="/update/{{$task->id}}"  >Update</a>
                         </th>
-                        <th>@if($task->isComplete)
+                        <th>@if($task->status)
                             <a class="btn btn-success" href="/mark/{{$task->id}}"  >completed</a>
                             @else
                                 <a class="btn btn-primary"  href="/mark/{{$task->id}}" >Mark as complete</a>
@@ -54,6 +54,7 @@
     </div>
     <div>
         <a href="/logout" type="button" class="btn btn-danger">LogOut</a>
+        <a href="/profile" type="button" class="btn btn-success">Profile</a>
     </div>
 </div>
 

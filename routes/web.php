@@ -2,21 +2,26 @@
 
 use App\Http\Controllers\auth\authManager;
 use App\Http\Controllers\TaskController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::group(['middleware'=>'auth'],function (){
+    Route::get('/', function () {
+        if(!Auth::check()){
+            return redirect('tasks');
+        }
+        return view('login');
+    });
+
     Route::get('/tasks',[TaskController::class, 'tasks'])->name('home');
-
     Route::post('/save',[TaskController::class, 'saveTask']);
-
     Route::get('/mark/{id}',[TaskController::class,'updateStatus']);
     Route::get('/delete/{id}',[TaskController::class,'deleteTask']);
     Route::get('/update/{id}',[TaskController::class,'updateTask']);
     Route::get('/update',[TaskController::class,'changeTask']);
+    Route::get('/profile',[authManager::class,'profile']);
 });
 
 
