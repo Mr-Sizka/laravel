@@ -45,10 +45,7 @@
 <script>let table = new DataTable('#myTable',{
         layout: {
             topStart: {
-                buttons: ['copy', 'csv',  'pdf', 'print',{
-                    extend: 'excelHtml5',
-                    class: 'buttons-html5',
-                }]
+                buttons: ['copy', 'csv','excel','pdf', 'print']
             }
         }
     });
