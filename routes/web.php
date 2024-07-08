@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\auth\authManager;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('/update/{id}',[TaskController::class,'updateTask']);
     Route::get('/update',[TaskController::class,'changeTask']);
     Route::get('/profile',[authManager::class,'profile']);
+    Route::get('/report',[ReportController::class,'generateReport']);
 });
 
 

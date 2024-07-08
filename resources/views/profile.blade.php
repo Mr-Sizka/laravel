@@ -3,35 +3,6 @@
 
 @section('content')
 
-<!--<div class="container ">
-    <div class="text-center">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Profile</h1>
-                <div class="container ">
-                    <div class="row ">
-                        <div class="col-md-6 border border-primary ">
-                            <div class="mb-5">
-                                <label for="name">First Name</label>
-                                <input type="text" readonly value="Sisuka">
-                            </div>
-                            <div class="mb-5">
-                                <label for="name">First Name</label>
-                                <input type="text" readonly value="Sisuka">
-                            </div>
-                            <div class="mb-5">
-                                <label for="name">First Name</label>
-                                <input type="text" readonly value="Sisuka">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-<!--</div>-->
-
 <div class="container p-5 min-vh-100 d-flex align-items-center justify-content-center" >
         <div class="col-md-6">
             <div class="card shadow-lg rounded-5 " style="background:lavender">
@@ -45,6 +16,7 @@
                         @endforeach
                     </div>
                     <a type="button" href="/tasks" class="btn btn-primary">Back</a>
+                    <a type="button" href="/report" class="btn btn-success">Generate Report</a>
                 </div>
             </div>
     </div>
