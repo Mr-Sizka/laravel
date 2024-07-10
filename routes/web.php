@@ -17,12 +17,15 @@ Route::group(['middleware'=>'auth'],function (){
     });
 
     Route::get('/tasks',[TaskController::class, 'tasks'])->name('home');
-    Route::post('/save',[TaskController::class, 'saveTask']);
-    Route::get('/mark/{id}',[TaskController::class,'updateStatus']);
-    Route::get('/delete/{id}',[TaskController::class,'deleteTask']);
-    Route::get('/update/{id}',[TaskController::class,'updateTask']);
-    Route::get('/update',[TaskController::class,'changeTask']);
+    Route::get('/load_tasks',[TaskController::class, 'load_tasks'])->name('load_tasks');
+    Route::post('/save_task',[TaskController::class, 'save_task']);
+    Route::get('/update_status',[TaskController::class,'update_status']);
+    Route::get('/delete_task',[TaskController::class,'delete_task']);
+    Route::get('/update_task',[TaskController::class,'updateTask']);
+    Route::get('/update_task_view/{id}',[TaskController::class,'update_task_view']);
+    Route::post('/update_task_post',[TaskController::class,'update_task_post']);
     Route::get('/profile',[authManager::class,'profile']);
+    Route::get('/profile_view/{id}',[authManager::class,'profile_view']);
     Route::get('/report',[ReportController::class,'generateReport']);
 });
 

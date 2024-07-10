@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 
 class authManager extends Controller
 {
@@ -84,14 +85,25 @@ class authManager extends Controller
         return redirect('register')->with('errors',["Error Try Again !"]);
     }
 
-    public function logOut(){
+    public function logOut(Request $request){
         Auth::logout();
-        Session::flush();
+        $request->session()->flush();
+        $request->session()->regenerateToken();
         return redirect()->intended('/login');
     }
 
     public function profile(){
-        $data=User::all()->where('email',Auth::user()->email);
-        return view('profile')->with('data',$data);
+        if (!Auth::check()) {
+            return "Please LogIn";
+        }
+        return Auth::user()->id;
+    }
+
+    public function profile_view(){
+
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+        return View::make('profile',['user'=>Auth::user()]);
     }
 }

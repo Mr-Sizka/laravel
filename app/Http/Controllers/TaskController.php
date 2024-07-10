@@ -5,21 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class TaskController extends Controller
 {
-    public function saveTask(Request $request)
+    public function save_task(Request $request)
     {
+        $request->validate(['task'=>['required']]);
         if (!Auth::check()) {
             return redirect('/login');
         }
-        $task = $request->validate(['task' => ['required'], 'user_id' => ['required']]);
-        task::create($task);
-        return redirect('tasks');
+        $task = new task();
+        $task->task = $request->input('task');
+        $task->user_id = Auth::user()->id;
+        task::create([
+            "task"=>$task->task,
+            "user_id"=>$task->user_id
+        ]);
     }
 
-    public function updateStatus($id)
+    public function update_status(Request $request)
     {
+        $id = $request->input('value');
         if (!Auth::check()) {
             return redirect()->intended('/login');
         }
@@ -27,56 +34,61 @@ class TaskController extends Controller
         if (Auth::user()->id === $task->user_id) {
             $task->status = !$task->status;
             $task->save();
-            return redirect()->intended('tasks');
+            return "success";
         } else {
-            return view('login')->with('apiErrors',["error"]);
+            return 'Error';
         }
 
     }
 
-    public function deleteTask($id)
+    public function update_task_view($id){
+        $task = task::find($id);
+        return View::make('update',['task'=>$task]);
+    }
+
+    public function delete_task(Request $request)
     {
+        $id = $request->input('value');
         if (!Auth::check()) {
             return redirect('/login');
         }
         $task = task::find($id);
         if (Auth::user()->id === $task->user_id) {
             task::find($id)->delete();
-            return redirect('tasks');
+            return 'success';
         } else {
-            return redirect('/tasks')->with('apiErrors', ['User Not Match']);
+            return 'error';
         }
 
     }
 
-    public function updateTask($id)
-    {
+    public function updateTask(Request $request)
+    {   $id = $request->input('value');
         if (!Auth::check()) {
             return redirect('/login');
         }
         $task = task::find($id);
         if (Auth::user()->id === $task->user_id) {
-            $task = task::find($id);
-            return view('update')->with('task', $task);
+            return $id;
         } else {
-            return redirect('/login')->with('errors', ['User Not Match']);
+            return "User Not Match";
         }
 
     }
 
-    public function changeTask(Request $request)
+    public function update_task_post(Request $request)
     {
         if (!Auth::check()) {
             return redirect('/login');
         }
         $request->validate(['task' => ['required'],]);
-        $data = task::find($request->id);
-        if ($data->user_id = Auth::user()->id) {
-            $data->task = $request->task;
-            $data->save();
-            return redirect('tasks');
+        $task = task::find($request->id);
+        if ($task->user_id = Auth::user()->id) {
+            $task->task = $request->task;
+            $task->save();
+            return 'success';
         };
-        return redirect('tasks')->with('errors', ['User Not Valid']);
+        return 'User Not Valid';
     }
 
     public function tasks()
@@ -84,8 +96,14 @@ class TaskController extends Controller
         if (!Auth::check()) {
             return redirect('/login');
         }
+
+        return view('tasks');
+    }
+
+    public function load_tasks()
+    {
         $user = Auth::user();
-        $data = task::all()->where('user_id', $user->id);
-        return view('tasks')->with(['tasks' => $data, 'user' => $user]);
+        return task::all()->where('user_id', $user->id);
+
     }
 }

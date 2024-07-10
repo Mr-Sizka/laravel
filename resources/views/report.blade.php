@@ -6,7 +6,7 @@
             <h1 class="text-center">Task Report</h1>
         </div>
         <div class="d-flex flex-row-reverse" >
-            <a href="/profile" type="button" class="btn btn-warning align-self-end ">Back to Profile</a>
+            <a onclick="profile_view()" type="button" class="btn btn-warning align-self-end ">Back to Profile</a>
         </div>
 
 
@@ -42,13 +42,27 @@
 
 @section('table')
 
-<script>let table = new DataTable('#myTable',{
+<script>
+    let table = new DataTable('#myTable',{
         layout: {
             topStart: {
                 buttons: ['copy', 'csv','excel','pdf', 'print']
             }
         }
     });
+
+    function profile_view(){
+        $.ajax({
+            type: "GET",
+            url: '/profile',
+            success: function (response) {
+                window.location.href = '/profile_view/'+response
+            },
+            error: function (response){
+                alert(response)
+            }
+        });
+    }
 </script>
 
 @endsection('table')
